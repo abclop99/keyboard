@@ -1,0 +1,197 @@
+# Define variables used in the rest of the config
+units:
+  # For points
+  pinkie_angle: 0
+  ring_angle: 19
+  middle_angle: 22
+
+  # For outline
+  r1: 3
+  expand: 15
+  unexpand: -expand + 1
+  shrink: -5
+  unshrink: -shrink
+
+points:
+  key:
+    padding: cy
+    spread: cx
+    # Only for visualization
+    height: cy
+    width: cx
+  zones:
+    main:
+      rotate: 22
+      rows:
+        bottom:
+        home:
+        top:
+      columns:
+        pinkie:
+          key:
+            splay: pinkie_angle
+          rows:
+            bottom:
+            home:
+              rotate: 0
+              shift: [0.05cx, 0.0cy]
+            top:
+              rotate: 8
+              shift: [-0.11cx, 0.03cy]
+        ring.key:
+          stagger: 0.5cy
+          spread: 1.097cx
+          splay: -pinkie_angle - ring_angle
+        middle.key:
+          stagger: 0.01cy
+          spread: 1.02cx
+          splay: ring_angle - middle_angle
+        index.key:
+          stagger: -0.1cy
+          spread: 1.01cx
+          splay: -4
+        far.key:
+          stagger: -0.15cy
+    thumb:
+      anchor:
+        ref: main_index_bottom
+        shift: [-0.5cx,-1.15cy]
+        rotate: -0
+      columns:
+        tucky:
+        resty.key:
+          spread: 1.1cx
+          splay: -17
+          origin: [-0.5cx, 0cy]
+        reachy2.key:
+          spread: 1.1cx
+          splay: -15
+          origin: [-9, 0]
+
+outlines:
+  clearance:
+    - what: rectangle
+      where: true
+      asym: source
+      size: [cx, cy]
+      corner: 2
+  _components_raw:
+    # Space for mcu
+    - what: rectangle
+      where:
+        ref: main_far_bottom
+        shift: [1.1cx, 0.2cy]
+      size: [18, 33]
+    # Space for TRRS
+    - what: rectangle
+      where:
+        ref: main_far_bottom
+        shift: [1.3cx, -1cy]
+        rotate: -90
+      size: [5, 10]
+  _components:
+    - what: outline
+      name: _components_raw
+      expand: 1.1
+  plate:
+    - what: rectangle
+      where: true
+      asym: source
+      size: [cx-0.5, cy-0.5]
+      corner: 2
+    - what: rectangle
+      where: true
+      asym: source
+      size: 14
+      bound: false
+      operation: subtract
+    - what: outline
+      name: _components_raw
+  pcb_perimeter_raw:
+    - what: rectangle
+      where: true
+      asym: source
+      size: [cx, cy]
+    - what: outline
+      name: _components
+  _pcb_perimeter_expanded:
+    - what: outline
+      name: pcb_perimeter_raw
+      expand: expand
+      joints: 0
+  pcb_perimeter_unexpanded:
+    - what: outline
+      name: _pcb_perimeter_expanded
+      expand: unexpand
+      joints: 0
+  _pcb_perimeter_shrunk:
+    - what: outline
+      name: pcb_perimeter_unexpanded
+      expand: shrink
+      joints: 0
+  pcb_perimeter_unshrunk:
+    - what: outline
+      name: _pcb_perimeter_shrunk
+      expand: unshrink
+      joints: 0
+  pcb_perimeter_with_plate:
+    - what: outline
+      name: pcb_perimeter_unshrunk
+    - what: outline
+      name: plate
+      operation: stack
+
+pcbs:
+  keyboard:
+    outlines:
+      - outline: pcb_perimeter_unshrunk
+    footprints:
+      keys:
+        what: choc
+        where: true
+        params:
+          from: GND
+          to: "{{column_net}}"
+          keycaps: true
+          reverse: true
+          hotswap: true
+      mcu:
+        what: promicro
+        where:
+          ref: main_far_bottom
+          shift: [1.1cx, 0.2cy]
+          rotate: -90
+        params:
+          orientation: down
+      trrs:
+        what: trrs
+        where:
+          ref: main_far_bottom
+          shift: [1.5cx, -1.1cy]
+          rotate: -90
+        params:
+          A: GND
+          B: GND
+          C: P1
+          D: VCC
+          reverse: true
+          symmetric: true
+      reset:
+        what: button
+        where:
+          ref: main_ring_home
+          shift: [-0.72cx, 0.05cy]
+          rotate: 90 + 15
+        params:
+          from: RST
+          to: GND
+      reset_bottom:
+        what: button
+        where:
+          ref: main_ring_home
+          shift: [-0.72cx, 0.05cy]
+          rotate: 90 + 15
+        params:
+          from: RST
+          to: GND
+          side: B
