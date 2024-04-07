@@ -6,8 +6,10 @@ units:
   middle_angle: 22
 
   # For outline
+  # For some reason, some values sometimes cause weird unexplainable
+  # errors, so the numbers may look a little weird
   r1: 3
-  expand: 15
+  expand: 15.1
   unexpand: -expand + 1
   shrink: -5
   unshrink: -shrink
@@ -21,7 +23,7 @@ points:
     width: cx
   zones:
     main:
-      rotate: 22
+      rotate: 26
       rows:
         bottom:
         home:
@@ -63,10 +65,10 @@ points:
           spread: 1.1cx
           splay: -17
           origin: [-0.5cx, 0cy]
-        reachy2.key:
-          spread: 1.1cx
-          splay: -15
-          origin: [-9, 0]
+        # reachy.key:
+        #   spread: 1.1cx
+        #   splay: -15
+        #   origin: [-9, 0]
 
 outlines:
   clearance:
@@ -151,18 +153,40 @@ pcbs:
         where: true
         params:
           from: GND
-          to: "{{column_net}}"
+          to: "{{name}}"
           keycaps: true
           reverse: true
           hotswap: true
       mcu:
-        what: promicro
+        what: promicro_pretty
         where:
           ref: main_far_bottom
           shift: [1.1cx, 0.2cy]
           rotate: -90
         params:
-          orientation: down
+          ## Inner/front side
+          # RMIF top
+          P1: main_ring_top
+          P0: main_middle_top
+          P2: main_index_top
+          P3: main_far_home
+          # Pinkie + thumb
+          P4: main_pinkie_top
+          P5: main_pinkie_home
+          P6: main_pinkie_bottom
+          P7: thumb_tucky
+          P8: thumb_resty
+          ## Outer/back side
+          # RMIF home
+          P21: main_ring_home
+          P20: main_middle_home
+          P19: main_index_home
+          P18: main_far_home
+          # RMIF bottom
+          P15: main_ring_bottom
+          P14: main_middle_bottom
+          P16: main_index_bottom
+          P10: main_far_bottom
       trrs:
         what: trrs
         where:
@@ -172,7 +196,7 @@ pcbs:
         params:
           A: GND
           B: GND
-          C: P1
+          C: P9
           D: VCC
           reverse: true
           symmetric: true
