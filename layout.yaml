@@ -165,11 +165,11 @@ pcbs:
           rotate: -90
         params:
           ## Inner/front side
-          # RMIF top
-          P1: main_ring_top
-          P0: main_middle_top
-          P2: main_index_top
-          P3: main_far_home
+          # FIMR top
+          P1: main_far_top
+          P0: main_index_top
+          P2: main_middle_top
+          P3: main_ring_top
           # Pinkie + thumb
           P4: main_pinkie_top
           P5: main_pinkie_home
@@ -177,16 +177,16 @@ pcbs:
           P7: thumb_tucky
           P8: thumb_resty
           ## Outer/back side
-          # RMIF home
-          P21: main_ring_home
-          P20: main_middle_home
-          P19: main_index_home
-          P18: main_far_home
-          # RMIF bottom
-          P15: main_ring_bottom
-          P14: main_middle_bottom
-          P16: main_index_bottom
-          P10: main_far_bottom
+          # FIMR home
+          P21: main_far_home
+          P20: main_index_home
+          P19: main_middle_home
+          P18: main_ring_home
+          # FIMR bottom
+          P15: main_far_bottom
+          P14: main_index_bottom
+          P16: main_middle_bottom
+          P10: main_ring_bottom
       trrs:
         what: trrs
         where:
