@@ -8,9 +8,9 @@ units:
   # For outline
   # For some reason, some values sometimes cause weird unexplainable
   # errors, so the numbers may look a little weird
-  r1: 3
-  expand: 15.1
-  unexpand: -expand + 1
+  r1: 4
+  expand: 20
+  unexpand: -expand + r1
   shrink: -5
   unshrink: -shrink
 
@@ -23,15 +23,22 @@ points:
     width: cx
   zones:
     main:
+      # Fix KiCAD sheet
+      anchor:
+        shift: [100, -200]
       rotate: 26
       rows:
         bottom:
+          row_net: D4
         home:
+          row_net: D0
         top:
+          row_net: D1
       columns:
         pinkie:
           key:
             splay: pinkie_angle
+            column_net: B1
           rows:
             bottom:
             home:
@@ -44,31 +51,41 @@ points:
           stagger: 0.5cy
           spread: 1.097cx
           splay: -pinkie_angle - ring_angle
+          column_net: F7
         middle.key:
           stagger: 0.01cy
           spread: 1.02cx
           splay: ring_angle - middle_angle
+          column_net: F6
         index.key:
           stagger: -0.1cy
           spread: 1.01cx
           splay: -4
+          column_net: F5
         far.key:
           stagger: -0.15cy
+          column_net: F4
     thumb:
       anchor:
         ref: main_index_bottom
         shift: [-0.5cx,-1.15cy]
         rotate: -0
+      rows:
+        thumb:
+          row_net: C6
       columns:
         tucky:
+          key.column_net: F6
         resty.key:
           spread: 1.1cx
           splay: -17
           origin: [-0.5cx, 0cy]
-        # reachy.key:
-        #   spread: 1.1cx
-        #   splay: -15
-        #   origin: [-9, 0]
+          column_net: F5
+        reachy.key:
+          spread: 1.125cx
+          splay: -15
+          origin: [-9, 0]
+          column_net: F4
 
 outlines:
   clearance:
@@ -152,41 +169,25 @@ pcbs:
         what: choc
         where: true
         params:
-          from: GND
-          to: "{{name}}"
+          from: "{{column_net}}"
+          to: "{{colrow}}"
           keycaps: true
           reverse: true
           hotswap: true
+      diode:
+        what: diode
+        where: true
+        params:
+          from: "{{colrow}}"
+          to: "{{row_net}}"
+        adjust:
+          shift: [0, -5]
       mcu:
         what: promicro_pretty
         where:
           ref: main_far_bottom
           shift: [1.1cx, 0.2cy]
           rotate: -90
-        params:
-          ## Inner/front side
-          # FIMR top
-          P1: main_far_top
-          P0: main_index_top
-          P2: main_middle_top
-          P3: main_ring_top
-          # Pinkie + thumb
-          P4: main_pinkie_top
-          P5: main_pinkie_home
-          P6: main_pinkie_bottom
-          P7: thumb_tucky
-          P8: thumb_resty
-          ## Outer/back side
-          # FIMR home
-          P21: main_far_home
-          P20: main_index_home
-          P19: main_middle_home
-          P18: main_ring_home
-          # FIMR bottom
-          P15: main_far_bottom
-          P14: main_index_bottom
-          P16: main_middle_bottom
-          P10: main_ring_bottom
       trrs:
         what: trrs
         where:
@@ -196,8 +197,8 @@ pcbs:
         params:
           A: GND
           B: GND
-          C: P9
-          D: VCC
+          C: VCC
+          D: D2
           reverse: true
           symmetric: true
       reset:
@@ -207,8 +208,8 @@ pcbs:
           shift: [-0.72cx, 0.05cy]
           rotate: 90 + 15
         params:
-          from: RST
-          to: GND
+          from: GND
+          to: RST
       reset_bottom:
         what: button
         where:
