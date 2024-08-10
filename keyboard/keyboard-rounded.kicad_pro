@@ -221,7 +221,7 @@
     "pinned_symbol_libs": []
   },
   "meta": {
-    "filename": "keyboard.kicad_pro",
+    "filename": "keyboard-rounded.kicad_pro",
     "version": 1
   },
   "net_settings": {
@@ -417,7 +417,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "../output/gerber",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",
