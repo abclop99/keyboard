@@ -408,6 +408,10 @@
       },
       {
         "netclass": "Default",
+        "pattern": "B4"
+      },
+      {
+        "netclass": "Default",
         "pattern": "B5"
       }
     ]
@@ -417,7 +421,7 @@
       "gencad": "",
       "idf": "",
       "netlist": "",
-      "plot": "",
+      "plot": "../output/gerber",
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",
