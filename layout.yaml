@@ -67,24 +67,29 @@ points:
           column_net: F4
     thumb:
       anchor:
-        ref: main_index_bottom
-        shift: [-0.5cx,-1.15cy]
+        ref: main_middle_bottom
+        shift: [-0.3cx,-1.15cy]
         rotate: -0
       rows:
         thumb:
           row_net: C6
       columns:
-        tucky:
-          key.column_net: F6
+        extra_tucky.key:
+          column_net: F7
+        tucky.key:
+          spread: 1.07cx
+          splay: -13
+          origin: [-0.6cx, 0cy]
+          column_net: F6
         resty.key:
-          spread: 1.1cx
+          spread: 1.09cx
           splay: -17
-          origin: [-0.5cx, 0cy]
+          origin: [-0.58cx, 0cy]
           column_net: F5
         reachy.key:
-          spread: 1.125cx
+          spread: 1.09cx
           splay: -15
-          origin: [-9, 0]
+          origin: [-0.6cx, 0cy]
           column_net: F4
 
 outlines:

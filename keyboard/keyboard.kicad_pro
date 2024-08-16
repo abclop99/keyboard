@@ -336,6 +336,10 @@
       },
       {
         "netclass": "Default",
+        "pattern": "extra_tucky_thumb"
+      },
+      {
+        "netclass": "Default",
         "pattern": "tucky_thumb"
       },
       {
@@ -425,7 +429,7 @@
       "pos_files": "",
       "specctra_dsn": "",
       "step": "",
-      "svg": "",
+      "svg": "../svgs/",
       "vrml": ""
     },
     "page_layout_descr_file": ""
